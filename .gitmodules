@@ -1,0 +1,6 @@
+[submodule "community-projects/tasty-reader"]
+	path = community-projects/tasty-reader
+	url = git@github.com:scalacenter/scala.git
+[submodule "community-projects/zio"]
+	path = community-projects/zio
+	url = git@github.com:zio/zio.git
