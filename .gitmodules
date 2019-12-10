@@ -4,3 +4,6 @@
 [submodule "community-projects/zio"]
 	path = community-projects/zio
 	url = git@github.com:zio/zio.git
+[submodule "community-projects/scalacheck"]
+	path = community-projects/scalacheck
+	url = git@github.com:dotty-staging/scalacheck.git

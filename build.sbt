@@ -17,17 +17,37 @@ publishTastyReader := {
   ).!
 }
 
-lazy val example = (project in file("example"))
+lazy val `zio-demo` = (project in file("zio"))
   .settings(
     scalaVersion := tastyReaderVersion,
-    name := "tasty-example-project",
-    libraryDependencies += junitInterface % Test,
+    name := "tasty-example-project-zio",
+    sourceDirectories in Test := Nil,
     libraryDependencies += dottyLib,
     libraryDependencies += zio
   )
 
+lazy val `intent-demo` = (project in file("intent"))
+  .settings(
+    scalaVersion := tastyReaderVersion,
+    name := "tasty-example-project-intent",
+    sourceDirectories in Compile := Nil,
+    libraryDependencies += dottyLib,
+    libraryDependencies += intent,
+    testFrameworks += new TestFramework("intent.sbt.Framework")
+  )
+
+lazy val `scalacheck-demo` = (project in file("scalacheck"))
+  .settings(
+    scalaVersion := tastyReaderVersion,
+    name := "tasty-example-project-scalacheck",
+    sourceDirectories in Compile := Nil,
+    libraryDependencies += dottyLib,
+    libraryDependencies += scalacheck,
+    testOptions in Test += Tests.Argument(TestFrameworks.ScalaCheck, "-maxSize", "5", "-minSuccessfulTests", "33", "-workers", "1", "-verbosity", "1")
+  )
+
 lazy val root = (project in file("."))
-  .aggregate(example)
+  .aggregate(`zio-demo`)
   .settings(
     sourceDirectories in Compile := Nil,
     sourceDirectories in Test := Nil,
