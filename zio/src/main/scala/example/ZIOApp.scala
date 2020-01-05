@@ -1,18 +1,18 @@
 package example
 
-import zio._
-import zio.console._
+import myconsole.{myPutStrLn, myGetStrLn}
 
-object ZIOApp extends App { // required republishing ZIO locally to make App an abstract class (see https://github.com/lampepfl/dotty/issues/7328)
+import zio._
+import zio.console.Console
+
+object ZIOApp extends App { // App must be abstract class until traits share jvm backend (see https://github.com/lampepfl/dotty/issues/7328)
 
   def run(args: List[String]): URIO[Console, Int] =
     myAppLogic.fold(_ => 1, _ => 0)
 
   val myAppLogic =
-    for {
-      _    <- putStrLn("Hello! What is your name?")
-      name <- getStrLn
-      _    <- putStrLn(s"Hello, ${name}, welcome to ZIO!")
-    } yield ()
+    myPutStrLn("Hello! What is your name?") *>
+    myGetStrLn >>= (name =>
+    myPutStrLn(s"Hello, $name, welcome to ZIO!"))
 
 }
