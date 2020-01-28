@@ -2,7 +2,7 @@ import Dependencies._
 import scala.sys.process._
 import java.io.File
 
-lazy val tastyReaderVersion = "2.13.2-SNAPSHOT-withTASTyReader"
+val tastyReaderVersion = "2.13.2-SNAPSHOT-withtastyreader"
 
 ThisBuild / scalaVersion     := "2.13.1"
 ThisBuild / version          := "0.1.0-SNAPSHOT"
