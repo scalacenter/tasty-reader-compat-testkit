@@ -12,7 +12,7 @@ lazy val publishTastyReader = taskKey[Int]("Publish a local version of scala wit
 
 publishTastyReader := {
   Process(
-    Seq("sbt", """;set baseVersionSuffix in Global := "SNAPSHOT-withTASTyReader";publishLocal"""),
+    Seq("sbt", """;set baseVersionSuffix in Global := "SNAPSHOT-withtastyreader";publishLocal"""),
     new File("community-projects/tasty-reader")
   ).!
 }
@@ -22,6 +22,7 @@ lazy val `zio-demo` = (project in file("zio"))
     scalaVersion := tastyReaderVersion,
     name := "tasty-example-project-zio",
     sourceDirectories in Test := Nil,
+    scalacOptions += "-Ytasty-no-annotations",
     libraryDependencies += dottyLib,
     libraryDependencies += zio
   )
