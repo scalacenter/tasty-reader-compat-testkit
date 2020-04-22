@@ -22,7 +22,6 @@ lazy val `zio-demo` = (project in file("zio"))
     scalaVersion := tastyReaderVersion,
     name := "tasty-example-project-zio",
     sourceDirectories in Test := Nil,
-    scalacOptions += "-Ytasty-no-annotations",
     libraryDependencies += zio
   )
 
