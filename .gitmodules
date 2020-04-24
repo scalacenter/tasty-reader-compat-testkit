@@ -7,3 +7,6 @@
 [submodule "community-projects/scalacheck"]
 	path = community-projects/scalacheck
 	url = git@github.com:dotty-staging/scalacheck.git
+[submodule "community-projects/zio18"]
+	path = community-projects/zio18
+	url = git@github.com:bishabosha/zio.git

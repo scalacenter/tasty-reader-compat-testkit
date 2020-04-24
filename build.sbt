@@ -10,6 +10,7 @@ ThisBuild / organization     := "ch.epfl.scala"
 
 lazy val publishTastyReader = taskKey[Int]("Publish a local version of scala with the tasty-reader")
 lazy val publishZio = taskKey[Int]("Publish a local version of zio compatible with the tasty-reader")
+lazy val publishZio18 = taskKey[Int]("Publish a local version of zio compatible with the tasty-reader")
 
 publishTastyReader := {
   Process(
@@ -25,12 +26,27 @@ publishZio := {
   ).!
 }
 
+publishZio18 := {
+  Process(
+    Seq("sbt", """; ++ 0.23.0-RC1!; set coreJVM/version := "1.0.0-RC18-2-tastycompat"; set stacktracerJVM/version := "1.0.0-RC18-2-tastycompat"; coreJVM/publishLocal; stacktracerJVM/publishLocal"""),
+    new File("community-projects/zio18")
+  ).!
+}
+
 lazy val `zio-demo` = (project in file("zio"))
   .settings(
     scalaVersion := tastyReaderVersion,
     name := "tasty-example-project-zio",
     sourceDirectories in Test := Nil,
     libraryDependencies += zio
+  )
+
+lazy val `zio18-demo` = (project in file("zio18"))
+  .settings(
+    scalaVersion := tastyReaderVersion,
+    name := "tasty-example-project-zio18",
+    sourceDirectories in Test := Nil,
+    libraryDependencies += zio18
   )
 
 lazy val `intent-demo` = (project in file("intent"))
