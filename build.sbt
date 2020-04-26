@@ -67,6 +67,24 @@ lazy val `scalacheck-demo` = (project in file("scalacheck"))
     testOptions in Test += Tests.Argument(TestFrameworks.ScalaCheck, "-maxSize", "5", "-minSuccessfulTests", "33", "-workers", "1", "-verbosity", "1")
   )
 
+lazy val `munit-demo` = (project in file("munit"))
+  .settings(
+    scalaVersion := tastyReaderVersion,
+    name := "tasty-example-project-munit",
+    sourceDirectories in Compile := Nil,
+    libraryDependencies += munit,
+    testFrameworks += new TestFramework("munit.Framework")
+  )
+
+lazy val `nanotest-demo` = (project in file("nanotest"))
+  .settings(
+    scalaVersion := tastyReaderVersion,
+    name := "tasty-example-project-nanotest",
+    sourceDirectories in Compile := Nil,
+    libraryDependencies += nanotest,
+    testFrameworks += new TestFramework("verify.runner.Framework")
+  )
+
 lazy val root = (project in file("."))
   .aggregate(`zio-demo`)
   .settings(
