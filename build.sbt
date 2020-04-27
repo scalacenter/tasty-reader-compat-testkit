@@ -85,6 +85,15 @@ lazy val `nanotest-demo` = (project in file("nanotest"))
     testFrameworks += new TestFramework("verify.runner.Framework")
   )
 
+lazy val `circe-demo` = (project in file("circe"))
+  .settings(
+    scalaVersion := tastyReaderVersion,
+    name := "tasty-example-project-circe",
+    sourceDirectories in Compile := Nil,
+    libraryDependencies ++= Seq(circe, `circe-parser`, `circe-generic`)
+  )
+
+
 lazy val root = (project in file("."))
   .aggregate(`zio-demo`)
   .settings(
