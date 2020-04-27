@@ -11,6 +11,7 @@ ThisBuild / organization     := "ch.epfl.scala"
 lazy val publishTastyReader = taskKey[Int]("Publish a local version of scala with the tasty-reader")
 lazy val publishZio = taskKey[Int]("Publish a local version of zio compatible with the tasty-reader")
 lazy val publishZio18 = taskKey[Int]("Publish a local version of zio compatible with the tasty-reader")
+lazy val publishScalacheck = taskKey[Int]("Publish a local version of scalacheck compatible with the tasty-reader")
 
 publishTastyReader := {
   Process(
@@ -30,6 +31,13 @@ publishZio18 := {
   Process(
     Seq("sbt", """; ++ 0.23.0-RC1!; set coreJVM/version := "1.0.0-RC18-2-tastycompat"; set stacktracerJVM/version := "1.0.0-RC18-2-tastycompat"; coreJVM/publishLocal; stacktracerJVM/publishLocal"""),
     new File("community-projects/zio18")
+  ).!
+}
+
+publishScalacheck := {
+  Process(
+    Seq("sbt", """; ++ 0.23.0-RC1!; jvm/publishLocal"""),
+    new File("community-projects/scalacheck")
   ).!
 }
 
