@@ -2,11 +2,12 @@ import Dependencies._
 import scala.sys.process._
 import java.io.File
 
-val tastyReaderVersion = "2.13.2-SNAPSHOT-withtastyreader"
+val dottyVersion = "0.23.0-RC1"
+val tastyReaderVersion = "2.13.4-SNAPSHOT-withtastyreader"
 
-ThisBuild / scalaVersion     := "2.13.1"
-ThisBuild / version          := "0.1.0-SNAPSHOT"
-ThisBuild / organization     := "ch.epfl.scala"
+ThisBuild / scalaVersion := "2.13.3"
+ThisBuild / version      := "0.1.0-SNAPSHOT"
+ThisBuild / organization := "ch.epfl.scala"
 
 lazy val publishTastyReader = taskKey[Int]("Publish a local version of scala with the tasty-reader")
 lazy val publishZio = taskKey[Int]("Publish a local version of zio compatible with the tasty-reader")
@@ -15,28 +16,28 @@ lazy val publishScalacheck = taskKey[Int]("Publish a local version of scalacheck
 
 publishTastyReader := {
   Process(
-    Seq("sbt", """;set baseVersionSuffix in Global := "SNAPSHOT-withtastyreader";publishLocal"""),
+    Seq("sbt", """; set baseVersionSuffix in Global := "SNAPSHOT-withtastyreader"; clean; publishLocal"""),
     new File("community-projects/tasty-reader")
   ).!
 }
 
 publishZio := {
   Process(
-    Seq("sbt", """; ++ 0.23.0-RC1!; set coreJVM/version := "1.0.0-RC17-tastycompat"; set stacktracerJVM/version := "1.0.0-RC17-tastycompat"; coreJVM/publishLocal; stacktracerJVM/publishLocal"""),
+    Seq("sbt", s"""; ++ $dottyVersion!; set coreJVM/version := "1.0.0-RC17-tastycompat"; set stacktracerJVM/version := "1.0.0-RC17-tastycompat"; coreJVM/publishLocal; stacktracerJVM/publishLocal"""),
     new File("community-projects/zio")
   ).!
 }
 
 publishZio18 := {
   Process(
-    Seq("sbt", """; ++ 0.23.0-RC1!; set coreJVM/version := "1.0.0-RC18-2-tastycompat"; set stacktracerJVM/version := "1.0.0-RC18-2-tastycompat"; coreJVM/publishLocal; stacktracerJVM/publishLocal"""),
+    Seq("sbt", s"""; ++ $dottyVersion!; set coreJVM/version := "1.0.0-RC18-2-tastycompat"; set stacktracerJVM/version := "1.0.0-RC18-2-tastycompat"; coreJVM/publishLocal; stacktracerJVM/publishLocal"""),
     new File("community-projects/zio18")
   ).!
 }
 
 publishScalacheck := {
   Process(
-    Seq("sbt", """; ++ 0.23.0-RC1!; jvm/publishLocal"""),
+    Seq("sbt", s"""; ++ $dottyVersion!; jvm/publishLocal"""),
     new File("community-projects/scalacheck")
   ).!
 }
