@@ -96,6 +96,13 @@ lazy val `sttp-demo` = (project in file("sttp"))
   )
   .settings(shared)
 
+lazy val `scodec-demo` = (project in file("scodec"))
+  .settings(
+    name := "test-tastyreader-scodec",
+    libraryDependencies += "org.scodec" % "scodec-core_3.0.0-RC1" % "2.0.0-RC1"
+  )
+  .settings(shared)
+
 lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
