@@ -59,6 +59,13 @@ lazy val `cats-effect-demo` = (project in file("cats-effect"))
   )
   .settings(shared)
 
+lazy val `skunk-demo` = (project in file("skunk"))
+  .settings(
+    name := "test-tastyreader-skunk",
+    libraryDependencies +=   "org.tpolecat" % "skunk-core_3.0.0-RC1" % "0.0.24",
+  )
+  .settings(shared)
+
 lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
