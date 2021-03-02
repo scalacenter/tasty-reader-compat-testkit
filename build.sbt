@@ -1,9 +1,15 @@
 val Scala213 = "2.13.5"
 
+val platformSuffix = settingKey[String]("platform binary suffix")
+
 lazy val shared = Seq(
   scalaVersion := Scala213,
   scalacOptions += "-Ytasty-reader",
   Test / scalacOptions += "-Ytasty-reader"
+)
+
+lazy val crossShared = Def.settings(
+  platformSuffix := (if (crossProjectPlatform.value == JSPlatform) "_sjs1" else ""),
 )
 
 lazy val `scalatest-demo` = (project in file("scalatest"))
@@ -52,12 +58,18 @@ lazy val `circe-parse-demo` = (project in file("circe-parse"))
   )
   .settings(shared)
 
-lazy val `cats-effect-demo` = (project in file("cats-effect"))
+lazy val `cats-effect-demo` = crossProject(JSPlatform, JVMPlatform)
+  .withoutSuffixFor(JVMPlatform)
+  .crossType(CrossType.Pure)
+  .in(file("cats-effect"))
   .settings(
     name := "test-tastyreader-cats-effect",
-    libraryDependencies += "org.typelevel" % "cats-effect_3.0.0-RC1" % "3.0.0-RC2"
+    libraryDependencies += "org.typelevel" % s"cats-effect${platformSuffix.value}_3.0.0-RC1" % "3.0.0-RC2"
   )
-  .settings(shared)
+  .jsSettings(
+    scalaJSUseMainModuleInitializer := true,
+  )
+  .settings(shared, crossShared)
 
 lazy val root = (project in file(".")).
   settings(
