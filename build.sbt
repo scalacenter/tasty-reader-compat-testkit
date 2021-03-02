@@ -1,113 +1,45 @@
-import Dependencies._
-import scala.sys.process._
-import java.io.File
+val Scala213 = "2.13.5"
 
-val dottyVersion = "0.23.0-RC1"
-val tastyReaderVersion = "2.13.4-SNAPSHOT-withtastyreader"
+lazy val shared = Seq(
+  scalaVersion := Scala213,
+  Test / scalacOptions += "-Ytasty-reader"
+)
 
-ThisBuild / scalaVersion := "2.13.3"
-ThisBuild / version      := "0.1.0-SNAPSHOT"
-ThisBuild / organization := "ch.epfl.scala"
-
-lazy val publishTastyReader = taskKey[Int]("Publish a local version of scala with the tasty-reader")
-lazy val publishZio = taskKey[Int]("Publish a local version of zio compatible with the tasty-reader")
-lazy val publishZio18 = taskKey[Int]("Publish a local version of zio compatible with the tasty-reader")
-lazy val publishScalacheck = taskKey[Int]("Publish a local version of scalacheck compatible with the tasty-reader")
-
-publishTastyReader := {
-  Process(
-    Seq("sbt", """; set baseVersionSuffix in Global := "SNAPSHOT-withtastyreader"; clean; publishLocal"""),
-    new File("community-projects/tasty-reader")
-  ).!
-}
-
-publishZio := {
-  Process(
-    Seq("sbt", s"""; ++ $dottyVersion!; set coreJVM/version := "1.0.0-RC17-tastycompat"; set stacktracerJVM/version := "1.0.0-RC17-tastycompat"; coreJVM/publishLocal; stacktracerJVM/publishLocal"""),
-    new File("community-projects/zio")
-  ).!
-}
-
-publishZio18 := {
-  Process(
-    Seq("sbt", s"""; ++ $dottyVersion!; set coreJVM/version := "1.0.0-RC18-2-tastycompat"; set stacktracerJVM/version := "1.0.0-RC18-2-tastycompat"; coreJVM/publishLocal; stacktracerJVM/publishLocal"""),
-    new File("community-projects/zio18")
-  ).!
-}
-
-publishScalacheck := {
-  Process(
-    Seq("sbt", s"""; ++ $dottyVersion!; jvm/publishLocal"""),
-    new File("community-projects/scalacheck")
-  ).!
-}
-
-lazy val `zio-demo` = (project in file("zio"))
+lazy val `scalatest-demo` = (project in file("scalatest"))
   .settings(
-    scalaVersion := tastyReaderVersion,
-    name := "tasty-example-project-zio",
-    sourceDirectories in Test := Nil,
-    libraryDependencies += zio
+    name := "test-tastyreader-scalacheck",
+    libraryDependencies += "org.scalatest" % "scalatest_3.0.0-RC1" % "3.2.5",
   )
-
-lazy val `zio18-demo` = (project in file("zio18"))
-  .settings(
-    scalaVersion := tastyReaderVersion,
-    name := "tasty-example-project-zio18",
-    sourceDirectories in Test := Nil,
-    libraryDependencies += zio18
-  )
-
-lazy val `intent-demo` = (project in file("intent"))
-  .settings(
-    scalaVersion := tastyReaderVersion,
-    name := "tasty-example-project-intent",
-    sourceDirectories in Compile := Nil,
-    libraryDependencies += intent,
-    testFrameworks += new TestFramework("intent.sbt.Framework")
-  )
-
-lazy val `scalacheck-demo` = (project in file("scalacheck"))
-  .settings(
-    scalaVersion := tastyReaderVersion,
-    name := "tasty-example-project-scalacheck",
-    sourceDirectories in Compile := Nil,
-    libraryDependencies += scalacheck,
-    testOptions in Test += Tests.Argument(TestFrameworks.ScalaCheck, "-maxSize", "5", "-minSuccessfulTests", "33", "-workers", "1", "-verbosity", "1")
-  )
+  .settings(shared)
 
 lazy val `munit-demo` = (project in file("munit"))
   .settings(
-    scalaVersion := tastyReaderVersion,
-    name := "tasty-example-project-munit",
-    sourceDirectories in Compile := Nil,
-    libraryDependencies += munit,
-    testFrameworks += new TestFramework("munit.Framework")
+    name := "test-tastyreader-munit",
+    libraryDependencies += "org.scalameta" % "munit_3.0.0-RC1" % "0.7.22",
+    libraryDependencies += "org.scala-lang" % "scala-reflect" % Scala213,
   )
+  .settings(shared)
+
+lazy val `scalacheck-demo` = (project in file("scalacheck"))
+  .settings(
+    name := "test-tastyreader-scalacheck",
+    libraryDependencies += "org.scalacheck" % "scalacheck_3.0.0-RC1" % "1.15.3",
+    testOptions in Test += Tests.Argument(TestFrameworks.ScalaCheck, "-maxSize", "5", "-minSuccessfulTests", "33", "-workers", "1", "-verbosity", "1")
+  )
+  .settings(shared)
 
 lazy val `nanotest-demo` = (project in file("nanotest"))
   .settings(
-    scalaVersion := tastyReaderVersion,
-    name := "tasty-example-project-nanotest",
-    sourceDirectories in Compile := Nil,
-    libraryDependencies += nanotest,
-    testFrameworks += new TestFramework("verify.runner.Framework")
+    name := "test-tastyreader-nanotest",
+    libraryDependencies += "com.eed3si9n.verify" % "verify_3.0.0-RC1" % "1.0.0"
   )
+  .settings(shared)
 
-lazy val `circe-demo` = (project in file("circe"))
-  .settings(
-    scalaVersion := tastyReaderVersion,
-    name := "tasty-example-project-circe",
-    sourceDirectories in Compile := Nil,
-    libraryDependencies ++= Seq(circe, `circe-parser`, `circe-generic`)
+lazy val root = (project in file(".")).
+  settings(
+    inThisBuild(List(
+      organization := "ch.epfl.scala",
+      scalaVersion := Scala213
+    )),
+    name := "test-tastyreader",
   )
-
-
-lazy val root = (project in file("."))
-  .aggregate(`zio-demo`)
-  .settings(
-    sourceDirectories in Compile := Nil,
-    sourceDirectories in Test := Nil,
-  )
-
-// See https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html for instructions on how to publish to Sonatype.
