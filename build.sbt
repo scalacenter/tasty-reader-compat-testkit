@@ -103,6 +103,25 @@ lazy val `scodec-demo` = (project in file("scodec"))
   )
   .settings(shared)
 
+lazy val `sourcecode-demo` = (project in file("sourcecode"))
+  .settings(
+    name := "test-tastyreader-sourcecode",
+    libraryDependencies += "com.lihaoyi" % "sourcecode_3.0.0-RC1" % "0.2.3",
+    libraryDependencies += "org.scala-lang" % "scala3-library_3.0.0-RC1" % "3.0.0-RC1",
+  )
+  .settings(shared)
+
+
+lazy val `natchez-demo` = (project in file("natchez"))
+  .settings(
+    name := "test-tastyreader-natchez",
+    libraryDependencies += "org.tpolecat" % "natchez-core_3.0.0-RC1" % "0.0.20",
+    libraryDependencies += "org.tpolecat" % "natchez-jaeger_3.0.0-RC1" % "0.0.20",
+    libraryDependencies += "org.typelevel" % "cats-effect_3.0.0-RC1" % "2.3.3",
+    addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.11.3" cross CrossVersion.full)
+  )
+  .settings(shared)
+
 lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
