@@ -96,6 +96,13 @@ lazy val `sttp-demo` = (project in file("sttp"))
   )
   .settings(shared)
 
+lazy val `refined-demo` = (project in file("refined"))
+  .settings(
+    name := "test-tastyreader-refined",
+    libraryDependencies += "eu.timepit" % "refined_3.0.0-RC1" % "0.9.21"
+  )
+  .settings(shared)
+
 lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
