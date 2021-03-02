@@ -1,5 +1,8 @@
 import monocle.syntax.all._
 
+case class User(name: String, addr: Address)
+case class Address(streetNumber: Int, streetName: String)
+
 object DemoParse extends App {
   val user = User("Anna", Address(12, "high street"))
 
