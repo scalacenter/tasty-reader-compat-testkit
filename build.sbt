@@ -59,6 +59,17 @@ lazy val `cats-effect-demo` = (project in file("cats-effect"))
   )
   .settings(shared)
 
+lazy val `fs2-demo` = (project in file("fs2"))
+  .settings(
+    name := "test-tastyreader-fs2",
+    libraryDependencies += "co.fs2" % "fs2-core_3.0.0-RC1" % "3.0-43-5b2b437", // For cats 2 and cats-effect 2
+    libraryDependencies += "co.fs2" % "fs2-io_3.0.0-RC1" % "3.0-43-5b2b437",
+    libraryDependencies += "co.fs2" % "fs2-reactive-streams_3.0.0-RC1" % "3.0-43-5b2b437",
+    libraryDependencies += "co.fs2" % "fs2-experimental_3.0.0-RC1" % "2.5.3",
+    libraryDependencies += "org.typelevel" % "cats-effect_3.0.0-RC1" % "3.0.0-RC2"
+  )
+  .settings(shared)
+
 lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
