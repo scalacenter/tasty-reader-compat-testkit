@@ -129,6 +129,16 @@ lazy val `log4s-demo` = (project in file("log4s"))
   )
   .settings(shared)
 
+lazy val `utest-demo` = (project in file("utest"))
+  .settings(
+    name := "test-tastyreader-utest",
+    libraryDependencies += "com.lihaoyi" % "utest_3.0.0-RC1" % "0.7.7" % "test",
+    libraryDependencies += "org.scala-lang" % "scala3-library_3.0.0-RC1" % "3.0.0-RC1",
+    testFrameworks += new TestFramework("utest.runner.Framework")
+  )
+  .settings(shared)
+
+
 lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
