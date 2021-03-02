@@ -1,3 +1,6 @@
 target/
 *.class
 *.tasty
+
+.bloop/
+.bsp/
