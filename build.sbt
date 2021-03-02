@@ -147,6 +147,13 @@ lazy val `geny-demo` = (project in file("geny"))
   )
   .settings(shared)
 
+lazy val `scala-csv-demo` = (project in file("scala-csv"))
+  .settings(
+    name := "test-tastyreader-scala-csv",
+    libraryDependencies += "com.github.tototoshi" % "scala-csv_3.0.0-RC1" % "1.3.7"
+  )
+  .settings(shared)
+
 lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
