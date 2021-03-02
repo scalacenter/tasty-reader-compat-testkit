@@ -59,6 +59,14 @@ lazy val `cats-effect-demo` = (project in file("cats-effect"))
   )
   .settings(shared)
 
+lazy val `monocle-demo` = (project in file("monocle"))
+  .settings(
+    name := "test-tastyreader-monocle",
+    libraryDependencies += "com.github.julien-truffaut" % "monocle-core_3.0.0-RC1" % "3.0.0-M3"
+  )
+  .settings(shared)
+
+
 lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
