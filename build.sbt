@@ -38,7 +38,7 @@ lazy val `nanotest-demo` = (project in file("nanotest"))
 
 lazy val `circe-generic-demo` = (project in file("circe-generic"))
   .settings(
-    name := "test-tastyreader-circe",
+    name := "test-tastyreader-circe-generic",
     libraryDependencies += "io.circe" % "circe-core_3.0.0-RC1" % "0.14.0-M4",
     libraryDependencies += "io.circe" % "circe-generic_3.0.0-RC1" % "0.14.0-M4"
   )
@@ -46,9 +46,16 @@ lazy val `circe-generic-demo` = (project in file("circe-generic"))
 
 lazy val `circe-parse-demo` = (project in file("circe-parse"))
   .settings(
-    name := "test-tastyreader-circe",
+    name := "test-tastyreader-circe-parse",
     libraryDependencies += "io.circe" % "circe-core_3.0.0-RC1" % "0.14.0-M4",
     libraryDependencies += "io.circe" % "circe-parser_3.0.0-RC1" % "0.14.0-M4"
+  )
+  .settings(shared)
+
+lazy val `cats-effect-demo` = (project in file("cats-effect"))
+  .settings(
+    name := "test-tastyreader-cats-effect",
+    libraryDependencies += "org.typelevel" % "cats-effect_3.0.0-RC1" % "3.0.0-RC2"
   )
   .settings(shared)
 

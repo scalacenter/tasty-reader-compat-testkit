@@ -14,3 +14,9 @@ on the TASTy reader.
 - branch `develop` is a workspace for using any commit of the scala compiler to
   test libraries built from source, this is useful for integration testing, or
   trying out modifications to a library to improve compatibility.
+
+This repo is organised as an sbt project with many subprojects.
+A typical example is run from the command line with:
+```
+> sbt "cats-effect-demo/run --do-it"
+```
