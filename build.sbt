@@ -103,6 +103,15 @@ lazy val `scodec-demo` = (project in file("scodec"))
   )
   .settings(shared)
 
+lazy val `sourcecode-demo` = (project in file("sourcecode"))
+  .settings(
+    name := "test-tastyreader-sourcecode",
+    libraryDependencies += "com.lihaoyi" % "sourcecode_3.0.0-RC1" % "0.2.3",
+    libraryDependencies += "org.scala-lang" % "scala3-library_3.0.0-RC1" % "3.0.0-RC1",
+  )
+  .settings(shared)
+
+
 lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
