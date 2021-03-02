@@ -89,6 +89,13 @@ lazy val `skunk-demo` = (project in file("skunk"))
   )
   .settings(shared)
 
+lazy val `sttp-demo` = (project in file("sttp"))
+  .settings(
+    name := "test-tastyreader-sttp",
+    libraryDependencies += "com.softwaremill.sttp.client3" % "core_3.0.0-RC1" % "3.1.6"
+  )
+  .settings(shared)
+
 lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
