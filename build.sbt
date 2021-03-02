@@ -139,6 +139,14 @@ lazy val `utest-demo` = (project in file("utest"))
   .settings(shared)
 
 
+lazy val `geny-demo` = (project in file("geny"))
+  .settings(
+    name := "geny",
+    libraryDependencies += "com.lihaoyi" % "geny_3.0.0-RC1" % "0.6.5",
+    libraryDependencies += "org.scala-lang" % "scala3-library_3.0.0-RC1" % "3.0.0-RC1"
+  )
+  .settings(shared)
+
 lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
