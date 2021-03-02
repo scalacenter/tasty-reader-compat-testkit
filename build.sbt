@@ -124,9 +124,10 @@ lazy val `natchez-demo` = (project in file("natchez"))
 
 lazy val `log4s-demo` = (project in file("log4s"))
   .settings(
-    name := "test-tastyreader-sttp",
-    libraryDependencies += "com.softwaremill.sttp.client3" % "core_3.0.0-RC1" % "3.1.6"
+    name := "test-tastyreader-log4s",
+    libraryDependencies += "org.log4s" % "log4s_3.0.0-RC1" % "1.10.0-M5"
   )
+  .settings(shared)
 
 lazy val root = (project in file(".")).
   settings(
